@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { toast } from "react-toastify"
 import ForgotPassword from "./ForgotPassword"
 import { Link, useNavigate } from "react-router-dom"
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/arrowIcon.svg"
@@ -41,7 +42,7 @@ function SignUp() {
             await setDoc(doc(db, 'users', user.uid), formDataCopy)
             navigate("/")
         } catch (error) {
-            console.log(error)
+            toast.error("Something went wrong with registration")
         }
     }
     return (
