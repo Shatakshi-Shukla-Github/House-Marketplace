@@ -1,9 +1,10 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { getAuth, updateProfile, onAuthStateChanged } from "firebase/auth"
-import { updateDoc } from "firebase/firestore"
+import { updateDoc, doc } from "firebase/firestore"
 import { db } from "../firebase.config"
 import { useNavigate, Link } from "react-router-dom"
+import { toast } from "react-toastify"
 function Profile() {
     const auth = getAuth()
     const [changeDetails, setChangeDetails] = useState(false)
@@ -18,11 +19,22 @@ function Profile() {
         auth.signOut()
         navigate("/")
     }
-    const onSubmit = () => {
+    const onSubmit = async () => {
         try {
-            if (auth.currentUser.displayName != name)
-        } catch (error) {
+            if (auth.currentUser.displayName != name) {
+                //Update displayName in firebase:-
+                await updateProfile(auth.currentUser, {
+                    displayName: name
+                })
 
+                //Update in firestore
+                const userRef = doc(db, "users", auth.currentUser.uid)
+                await updateDoc(userRef, {
+                    name
+                })
+            }
+        } catch (error) {
+            toast.error("Could not update Profile Details")
         }
     }
     const onChange = (e) => {
