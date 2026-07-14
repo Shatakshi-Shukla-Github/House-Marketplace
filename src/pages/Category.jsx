@@ -43,7 +43,7 @@ function Category() {
             }
         }
         fetchListings()
-    }, [])
+    }, [params.categoryName])
 
 
     return (
