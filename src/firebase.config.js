@@ -27,10 +27,11 @@ const firebaseConfig = {
     apiKey: "AIzaSyB-X4nTiV7Uvyvf48vbyfvEWGcCzpCP0Pg",
     authDomain: "house-marketplace-app-2d39f.firebaseapp.com",
     projectId: "house-marketplace-app-2d39f",
-    storageBucket: "house-marketplace-app-2d39f.appspot.com",
+    storageBucket: "house-marketplace-app-2d39f.firebasestorage.app",
     messagingSenderId: "679005978020",
     appId: "1:679005978020:web:62abf9904dbefe4e1c1531"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
