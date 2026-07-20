@@ -40,10 +40,9 @@ function Profile() {
     //     setLoading(false)
     //     // }
     // }, [auth.currentUser.uid])
-    const onLogout = () => {
-        auth.signOut()
-        navigate("/")
-    }
+
+
+
 
     useEffect(() => {
         const listingsRef = collection(db, 'listings');
@@ -68,7 +67,20 @@ function Profile() {
             setLoading(false);
         });
     }, [auth.currentUser.uid]);
+    const onLogout = () => {
+        auth.signOut()
+        navigate("/")
+    }
 
+    const onDelete = async (listingId) => {
+        if (window.confirm("Are you sure you want to delete the listing permanently?")) {
+            await deleteDoc(doc(db, "listings", listingId))
+            const updatedListings = listings.filter((listing) =>
+                listing.id !== listingId)
+            setListings(updatedListings)
+            toast.success("Listing deleted successfully")
+        }
+    }
 
     const onSubmit = async () => {
         try {
@@ -130,7 +142,7 @@ function Profile() {
                         <p className="listingText">Your Listings</p>
                         <ul className="listingsList">
                             {listings.map((listing) => (
-                                <ListingItem key={listing.id} listing={listing.data} id={listing.id} />
+                                <ListingItem key={listing.id} listing={listing.data} id={listing.id} onDelete={() => onDelete(listing.id)} />
                             ))}
                         </ul>
                     </>
