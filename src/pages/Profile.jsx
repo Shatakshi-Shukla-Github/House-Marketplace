@@ -82,6 +82,10 @@ function Profile() {
         }
     }
 
+    const onEdit = (listingId) => {
+        navigate(`/edit-listing/${listingId}`)
+    }
+
     const onSubmit = async () => {
         try {
             if (auth.currentUser.displayName !== name) {
@@ -142,7 +146,7 @@ function Profile() {
                         <p className="listingText">Your Listings</p>
                         <ul className="listingsList">
                             {listings.map((listing) => (
-                                <ListingItem key={listing.id} listing={listing.data} id={listing.id} onDelete={() => onDelete(listing.id)} />
+                                <ListingItem key={listing.id} listing={listing.data} id={listing.id} onDelete={() => onDelete(listing.id)} onEdit={() => onEdit(listing.id)} />
                             ))}
                         </ul>
                     </>
