@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { toast } from "react-toastify"
-import ForgotPassword from "./ForgotPassword"
+// import ForgotPassword from "./ForgotPassword"
 import { Link, useNavigate } from "react-router-dom"
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/arrowIcon.svg"
 import visibilityIcon from "../assets/svg/visibilityIcon.svg"

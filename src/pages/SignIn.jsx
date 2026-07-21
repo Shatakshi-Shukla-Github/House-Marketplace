@@ -1,5 +1,5 @@
 import { useState } from "react"
-import ForgotPassword from "./ForgotPassword"
+// import ForgotPassword from "./ForgotPassword"
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import { Link, useNavigate } from "react-router-dom"
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/arrowIcon.svg"

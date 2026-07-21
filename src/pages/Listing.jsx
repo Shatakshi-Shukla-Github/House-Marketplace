@@ -61,7 +61,7 @@ function Listing() {
                     setShareLinkCopied(false)
                 }, 2000)
             }}>
-                <img src={shareIcon} />
+                <img src={shareIcon} alt="shareIcon" />
             </div>
 
 

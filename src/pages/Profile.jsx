@@ -1,6 +1,6 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import { getAuth, updateProfile, onAuthStateChanged } from "firebase/auth"
+import { getAuth, updateProfile } from "firebase/auth"
 import { updateDoc, doc, collection, getDocs, query, where, orderBy, deleteDoc } from "firebase/firestore"
 import { db } from "../firebase.config"
 import { useNavigate, Link } from "react-router-dom"
