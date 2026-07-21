@@ -7,6 +7,5 @@ const PrivateRoute = () => {
         return <h3><Spinner /></h3>
     }
     return loggedIn ? <Outlet /> : <Navigate to="/sign-in" />
-    return loggedIn ? <Outlet /> : <Navigate to="/sign-in" />
 }
 export default PrivateRoute
