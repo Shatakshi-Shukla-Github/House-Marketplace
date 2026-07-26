@@ -1,5 +1,4 @@
 // Travery's Github Code:-
-
 import { useState, useEffect, useRef } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import {
@@ -16,6 +15,9 @@ import { v4 as uuidv4 } from 'uuid'
 import Spinner from '../components/Spinner'
 
 function CreateListing() {
+    //create state or store file (for AWS):-
+    const [file, setFile] = useState(null)
+
     // eslint-disable-next-line
     const [geolocationEnabled, setGeolocationEnabled] = useState(true)
     const [loading, setLoading] = useState(false)
@@ -71,6 +73,52 @@ function CreateListing() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMounted])
+
+
+    //Upload Images on AWS:-
+    const uploadFile = async () => {
+        try {
+            // 1. Fetch the secure presigned URL from your Lambda backend API
+            // (Replace 'YOUR_LAMBDA_API_URL_HERE' with your actual API Gateway or Lambda URL)
+            const response = await fetch(' https://z2wjjl91j6.execute-api.ap-south-1.amazonaws.com/default/getPresignedImageURL');
+
+            if (!response.ok) {
+                throw new Error("Failed to get upload URL from server");
+            }
+
+            const { uploadURL, Key } = await response.json();
+
+            // 2. Upload the file directly to S3 using the URL Lambda gave you
+            const uploadResult = await fetch(uploadURL, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'image/jpeg'
+                },
+                body: file // This uses the 'file' variable from your component state
+            });
+
+            if (uploadResult.ok) {
+                alert("File uploaded successfully.");
+                console.log("Saved on S3 with file name:", Key);
+            } else {
+                alert("S3 upload failed.");
+            }
+
+        } catch (err) {
+            console.error("Upload process failed:", err);
+            alert("An error occurred during the upload.");
+        }
+    };
+
+
+
+
+
+
+
+
+
+
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -158,6 +206,7 @@ function CreateListing() {
             })
         }
 
+
         const imgUrls = await Promise.all(
             [...images].map((image) => storeImage(image))
         ).catch(() => {
@@ -184,6 +233,7 @@ function CreateListing() {
         navigate(`/category/${formDataCopy.type}/${docRef.id}`)
     }
 
+
     const onMutate = (e) => {
         let boolean = null
 
@@ -200,6 +250,10 @@ function CreateListing() {
                 ...prevState,
                 images: e.target.files,
             }))
+
+            //uploaded file (for AWS):-
+            const file = e.target.files[0]
+            setFile(file)
         }
 
         // Text/Booleans/Numbers
@@ -214,6 +268,9 @@ function CreateListing() {
     if (loading) {
         return <Spinner />
     }
+
+
+
 
     return (
         <div className='profile'>
@@ -444,6 +501,7 @@ function CreateListing() {
                         multiple
                         required
                     />
+                    <button onClick={uploadFile}>Upload Images on AWS</button>
                     <button type='submit' className='primaryButton createListingButton'>
                         Create Listing
                     </button>
@@ -451,6 +509,7 @@ function CreateListing() {
             </main>
         </div>
     )
+
 }
 
 export default CreateListing
