@@ -1,23 +1,15 @@
 // Travery's Github Code:-
 import { useState, useEffect, useRef } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import {
-    getStorage,
-    ref,
-    uploadBytesResumable,
-    getDownloadURL,
-} from 'firebase/storage'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase.config'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { v4 as uuidv4 } from 'uuid'
 import Spinner from '../components/Spinner'
+import StoreImgToFirebase from "../components/StoreImgToFirebase"
+import StoreImgToAWS from '../components/StoreImgToAWS'
 
 function CreateListing() {
-    //create state or store file (for AWS):-
-    const [file, setFile] = useState([])
-
     // eslint-disable-next-line
     const [geolocationEnabled, setGeolocationEnabled] = useState(true)
     const [loading, setLoading] = useState(false)
@@ -75,40 +67,40 @@ function CreateListing() {
     }, [isMounted])
 
     //Upload Images on AWS:-
-    const uploadFile = async (image) => {
-        try {
-            // 1. Fetch the secure presigned URL from your Lambda backend API
-            // (Replace 'YOUR_LAMBDA_API_URL_HERE' with your actual API Gateway or Lambda URL)
-            const response = await fetch(' https://z2wjjl91j6.execute-api.ap-south-1.amazonaws.com/default/getPresignedImageURL');
+    // const uploadFile = async (image) => {
+    //     try {
+    //         // 1. Fetch the secure presigned URL from your Lambda backend API
+    //         // (Replace 'YOUR_LAMBDA_API_URL_HERE' with your actual API Gateway or Lambda URL)
+    //         const response = await fetch(' https://z2wjjl91j6.execute-api.ap-south-1.amazonaws.com/default/getPresignedImageURL');
 
-            if (!response.ok) {
-                throw new Error("Failed to get upload URL from server");
-            }
+    //         if (!response.ok) {
+    //             throw new Error("Failed to get upload URL from server");
+    //         }
 
-            const { uploadURL, Key } = await response.json();
+    //         const { uploadURL, Key } = await response.json();
 
-            // 2. Upload the file directly to S3 using the URL Lambda gave you
-            const uploadResult = await fetch(uploadURL, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'image/jpeg'
-                },
-                body: image // This uses the 'file' variable from your component state
-            });
+    //         // 2. Upload the file directly to S3 using the URL Lambda gave you
+    //         const uploadResult = await fetch(uploadURL, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'image/jpeg'
+    //             },
+    //             body: image // This uses the 'file' variable from your component state
+    //         });
 
-            if (uploadResult.ok) {
-                toast.success("File uploaded successfully.");
-                console.log("Saved on S3 with file name:", Key);
-            } else {
-                alert("S3 upload failed.");
-            }
+    //         if (uploadResult.ok) {
+    //             toast.success("File uploaded successfully.");
+    //             console.log("Saved on S3 with file name:", Key);
+    //         } else {
+    //             alert("S3 upload failed.");
+    //         }
 
-        } catch (err) {
-            console.error("Upload process failed:", err);
-            alert("An error occurred during the upload.");
-        }
+    //     } catch (err) {
+    //         console.error("Upload process failed:", err);
+    //         alert("An error occurred during the upload.");
+    //     }
 
-    };
+    // };
 
 
 
@@ -163,65 +155,84 @@ function CreateListing() {
         }
 
         // Store image in firebase
-        const storeImage = async (image) => {
-            return new Promise((resolve, reject) => {
-                const storage = getStorage()
-                const fileName = `${auth.currentUser.uid}-${image.name}-${uuidv4()}`
+        // const storeImage = async (image) => {
+        //     return new Promise((resolve, reject) => {
+        //         const storage = getStorage()
+        //         const fileName = `${auth.currentUser.uid}-${image.name}-${uuidv4()}`
 
-                const storageRef = ref(storage, 'images/' + fileName)
+        //         const storageRef = ref(storage, 'images/' + fileName)
 
-                const uploadTask = uploadBytesResumable(storageRef, image)
+        //         const uploadTask = uploadBytesResumable(storageRef, image)
 
-                uploadTask.on(
-                    'state_changed',
-                    (snapshot) => {
-                        const progress =
-                            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                        console.log('Upload is ' + progress + '% done')
-                        switch (snapshot.state) {
-                            case 'paused':
-                                console.log('Upload is paused')
-                                break
-                            case 'running':
-                                console.log('Upload is running')
-                                break
-                            default:
-                                break
-                        }
-                    },
-                    (error) => {
-                        reject(error)
-                    },
-                    () => {
-                        // Handle successful uploads on complete
-                        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                            resolve(downloadURL)
-                        })
-                    }
-                )
-            })
-        }
+        //         uploadTask.on(
+        //             'state_changed',
+        //             (snapshot) => {
+        //                 const progress =
+        //                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        //                 console.log('Upload is ' + progress + '% done')
+        //                 switch (snapshot.state) {
+        //                     case 'paused':
+        //                         console.log('Upload is paused')
+        //                         break
+        //                     case 'running':
+        //                         console.log('Upload is running')
+        //                         break
+        //                     default:
+        //                         break
+        //                 }
+        //             },
+        //             (error) => {
+        //                 reject(error)
+        //             },
+        //             () => {
+        //                 // Handle successful uploads on complete
+        //                 // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        //                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        //                     resolve(downloadURL)
+        //                 })
+        //             }
+        //         )
+        //     })
+        // }
+
+        //Previous Version:-
+        // const imgUrls = await Promise.all(
+        //     [...images].map((image) => storeImage(image))
+        // ).catch(() => {
+        //     setLoading(false)
+        //     toast.error('Images not uploaded')
+        //     return
+        // })
+
 
 
         const imgUrls = await Promise.all(
-            [...images].map((image) => storeImage(image))
+            [...images].map((image) => StoreImgToFirebase(image))
         ).catch(() => {
             setLoading(false)
             toast.error('Images not uploaded')
-            return
+            return null
         })
 
+        if (!imgUrls) return
+
+        // Previous Version:-
+        // const loopImages = await Promise.all(
+        //     [...images].map((image) => uploadFile(image))
+        // ).catch(() => {
+        //     // setLoading(false)
+        //     toast.error('Images not uploaded')
+        //     return
+        // })
+
+
         const loopImages = await Promise.all(
-            [...images].map((image) => uploadFile(image))
+            [...images].map((image) => StoreImgToAWS(image))
         ).catch(() => {
             // setLoading(false)
             toast.error('Images not uploaded')
-            return
+            return null
         })
-
-
-
 
         const formDataCopy = {
             ...formData,
@@ -259,8 +270,6 @@ function CreateListing() {
                 images: e.target.files,
             }))
 
-            //uploaded file (for AWS):-
-            setFile((prevState) => ([...prevState, { images: e.target.files }]))
         }
 
         // Text/Booleans/Numbers
