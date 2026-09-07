@@ -6,15 +6,19 @@ import { db } from '../firebase.config'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner'
-import StoreImgToFirebase from "../components/StoreImgToFirebase"
-import StoreImgToAWS from '../components/StoreImgToAWS'
+import StoreImgToFirebase from "../utils/StoreImgToFirebase"
+import StoreImgToAWS from '../utils/StoreImgToAWS'
 
 function CreateListing() {
     // eslint-disable-next-line
+
+    // const [imageKeys, setImageKeys] = useState([]);
+    const imageKeys = []; // Array to hold the S3 keys of uploaded images
     const [geolocationEnabled, setGeolocationEnabled] = useState(true)
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
         type: 'rent',
+
         name: '',
         bedrooms: 1,
         bathrooms: 1,
@@ -114,6 +118,7 @@ function CreateListing() {
 
         setLoading(true)
 
+
         if (discountedPrice >= regularPrice) {
             setLoading(false)
             toast.error('Discounted price needs to be less than regular price')
@@ -212,6 +217,7 @@ function CreateListing() {
             setLoading(false)
             toast.error('Images not uploaded')
             return null
+
         })
 
         if (!imgUrls) return
@@ -229,10 +235,11 @@ function CreateListing() {
         const loopImages = await Promise.all(
             [...images].map((image) => StoreImgToAWS(image))
         ).catch(() => {
-            // setLoading(false)
+            setLoading(false)
             toast.error('Images not uploaded')
             return null
         })
+        console.log(loopImages)
 
         const formDataCopy = {
             ...formData,

@@ -6,7 +6,6 @@ import {
 } from 'firebase/storage'
 import { v4 as uuidv4 } from 'uuid'
 import { getAuth } from 'firebase/auth'
-
 // This is an upload utility, not a React component. It resolves with a URL that
 // Firestore can safely store as a string.
 function StoreImgToFirebase(image) {
@@ -18,6 +17,8 @@ function StoreImgToFirebase(image) {
         const storageRef = ref(storage, 'images/' + fileName)
 
         const uploadTask = uploadBytesResumable(storageRef, image)
+
+        // const uploadTask = uploadBytesResumable(storageRef, Key) // Use the Key from AWS upload as the image to upload to Firebase
 
         // uploadTask.on(
         //     'state_changed',
