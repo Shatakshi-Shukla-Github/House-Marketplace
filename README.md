@@ -1,6 +1,242 @@
-# Getting Started with Create React App
+# House Marketplace
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-featured real-estate marketplace application built with React and Firebase. The app allows users to discover homes for rent or sale, create listings, manage their profiles, and contact property owners directly.
+
+## Overview
+
+House Marketplace is a practical property listing platform inspired by the typical home rental and sales marketplace flow. It provides a clean, mobile-friendly interface for browsing properties and managing listings for both buyers and sellers.
+
+### Core Features
+
+- Browse featured and category-based listings
+- Filter by property type: rent or sale
+- View detailed property information with pricing, rooms, amenities, and location
+- Sign in or sign up using email/password or Google authentication
+- Create, edit, and delete listings from the user profile
+- Contact landlords directly from the property details page
+- View property location on a map using Leaflet
+- Responsive UI built for desktop and mobile experiences
+
+## Tech Stack
+
+- React.js
+- React Router DOM
+- Firebase Authentication
+- Firestore Database
+- Firebase Storage
+- React Leaflet
+- Swiper
+- React Toastify
+- Create React App
+
+## Project Structure
+
+```bash
+house-marketplace/
+├─ build/                          # Production build output
+├─ public/                        # Static files
+├─ src/
+│  ├─ assets/
+│  │  ├─ jpg/
+│  │  └─ svg/
+│  ├─ components/
+│  │  ├─ ListingItem.jsx
+│  │  ├─ Navbar.jsx
+│  │  ├─ OAuth.jsx
+│  │  ├─ PrivateRoute.jsx
+│  │  ├─ Slider.jsx
+│  │  └─ Spinner.jsx
+│  ├─ hooks/
+│  │  └─ useAuthStatus.js
+│  ├─ pages/
+│  │  ├─ Category.jsx
+│  │  ├─ Contact.jsx
+│  │  ├─ CreateListing.jsx
+│  │  ├─ EditListing.jsx
+│  │  ├─ Explore.jsx
+│  │  ├─ ForgotPassword.jsx
+│  │  ├─ Listing.jsx
+│  │  ├─ Offers.jsx
+│  │  ├─ Profile.jsx
+│  │  ├─ SignIn.jsx
+│  │  └─ SignUp.jsx
+│  ├─ utils/
+│  │  ├─ StoreImgToAWS.js
+│  │  └─ StoreImgToFirebase.js
+│  ├─ App.css
+│  ├─ App.js
+│  ├─ App.test.js
+│  ├─ firebase.config.js
+│  ├─ index.css
+│  ├─ index.js
+│  ├─ reportWebVitals.js
+│  └─ setupTests.js
+├─ .gitignore
+├─ package.json
+├─ package-lock.json
+├─ README.md
+└─ public/
+```
+
+## Key Pages
+
+- Explore page: shows featured listings and category navigation
+- Offers page: displays discounted or promoted property offers
+- Category page: lists properties for rent or sale
+- Listing detail page: shows property photos, location, pricing, and map
+- Profile page: displays user details and their listings
+- Create Listing page: allows authenticated users to post homes
+- Edit Listing page: updates property details
+- Sign In / Sign Up pages: account creation and login flows
+- Contact page: direct contact route for landlords
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ recommended
+- npm or yarn
+- Firebase account
+- Google Maps/Geocoding API key (for address conversion and map-based geolocation)
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/house-marketplace.git
+cd house-marketplace
+```
+
+2. Install project dependencies:
+
+```bash
+npm install
+```
+
+3. Configure Firebase:
+
+Open `src/firebase.config.js` and replace the default configuration with your Firebase project settings:
+
+```javascript
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID",
+};
+```
+
+4. Add environment values if needed:
+
+```bash
+REACT_APP_GEOCODE_API_KEY=your_google_geocoding_api_key
+```
+
+### Run the app locally
+
+```bash
+npm start
+```
+
+The app will open at:
+
+```text
+http://localhost:3000
+```
+
+## Build for Production
+
+```bash
+npm run build
+```
+
+This creates a production-ready optimized bundle inside the `build/` directory.
+
+## Firebase Data Model
+
+This project uses Firestore and Firebase Authentication.
+
+### Users Collection
+Stores user profile data such as:
+
+- name
+- email
+- timestamp
+
+### Listings Collection
+Each property listing includes data such as:
+
+- name
+- type (rent or sale)
+- address or location
+- bedrooms
+- bathrooms
+- parking
+- furnished
+- regularPrice
+- discountedPrice
+- offer
+- imgUrls
+- geolocation
+- userRef
+- timestamp
+
+## Authentication and Access Control
+
+The app uses Firebase Authentication for:
+
+- Email signup/login
+- Google sign-in
+- Protecting private pages like profile and listing creation
+
+Routes like profile and listing creation are guarded by a custom private route flow using Firebase auth state.
+
+## Notes
+
+- Firebase credentials should be replaced before deployment to avoid exposing project secrets.
+- Address lookup and map position use a geocoding API, so a valid key is required for the location features.
+- Image handling uses Firebase storage helpers and AWS/S3-related utility code in `src/utils/` depending on configuration.
+
+## Deployment
+
+This project can be deployed using:
+
+- Firebase Hosting
+- Vercel
+- Netlify
+
+Typical Firebase deployment flow:
+
+```bash
+npm run build
+firebase deploy
+```
+
+## Contributing
+
+Contributions are welcome. You can:
+
+1. Fork the repository
+2. Create a new feature branch
+3. Commit your changes
+4. Open a pull request
+
+## License
+
+This project is intended for learning and personal portfolio use. If you plan to publish it publicly, consider adding an appropriate license such as MIT.
+
+## Summary
+
+House Marketplace is a React + Firebase property listing app that demonstrates user authentication, listing creation, item discovery, and location-aware real-estate browsing. It is a good candidate for portfolio work, learning CRUD flows, and extending into a larger property marketplace application.
+
+---
+
+## Additional Note
+
+This project was bootstrapped with Create React App and can be used as a starting point for a production-ready property marketplace.
 
 ## Available Scripts
 

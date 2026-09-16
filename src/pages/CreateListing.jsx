@@ -12,8 +12,7 @@ import StoreImgToAWS from '../utils/StoreImgToAWS'
 function CreateListing() {
     // eslint-disable-next-line
 
-    // const [imageKeys, setImageKeys] = useState([]);
-    const imageKeys = []; // Array to hold the S3 keys of uploaded images
+    const [imageKeys, setImageKeys] = useState([]);
     const [geolocationEnabled, setGeolocationEnabled] = useState(true)
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
@@ -239,7 +238,15 @@ function CreateListing() {
             toast.error('Images not uploaded')
             return null
         })
-        console.log(loopImages)
+        // console.log(loopImages)
+
+        //Storing S3 Keys:-
+        setImageKeys((prevState) => [...prevState, ...loopImages])
+        console.log(
+
+        )
+
+
 
         const formDataCopy = {
             ...formData,
