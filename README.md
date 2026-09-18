@@ -1,4 +1,4 @@
-<h1><a href="house-marketplace-ybgc-jade.vercel.app">House Marketplace</a></h1>
+<h1><a href="https://house-marketplace-ybgc-jade.vercel.app">House Marketplace</a></h1>
 
 A full-featured real-estate marketplace application built with React and Firebase. The app allows users to discover homes for rent or sale, create listings, manage their profiles, and contact property owners directly.
 
