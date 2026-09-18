@@ -56,24 +56,30 @@ House Marketplace is a practical property listing platform inspired by the typic
 <h2>Technologies Used</h2>
 <ul>
   <li><b>Frontend & Routing</b></li>
+  <p>
     <ul>
       <li>React.js (Core UI library)</li>
       <li>React Router DOM (Client-side routing and navigation)</li>
     </ul>
+  </p>
 
   <li>Backend, Database & Cloud Services</b></li>
+   <p>
     <ul>
       <li>Firebase Authentication (User management and auth)</li>
       <li>Firestore Database (NoSQL cloud database)</li>
       <li>Firebase Storage & AWS S3 (Cloud file and media storage)</li>
       <li>AWS Lambda / API Gateway (Serverless backend logic for secure presigned upload URLs)</li>
     </ul>
+    </p>
 
   <li>UI Components & Integrations</b></li>
+   <p>
     <ul>
       <li>React Leaflet (Interactive mapping and geolocation)</li>
       <li>Swiper (Touch-enabled image carousels and sliders)</li>
     </ul>
+    </p>
  </ul>   
   
   
