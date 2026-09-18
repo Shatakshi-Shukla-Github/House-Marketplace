@@ -8,72 +8,75 @@ House Marketplace is a practical property listing platform inspired by the typic
 
 <h2>Core Features</h2>
 <ul>
-  <p><li>Browse featured and category-based listings
+  <p><li><h3>Browse featured and category-based listings</h3>
 <img width="1261" height="869" alt="HM Home-1" src="https://github.com/user-attachments/assets/ed7e7f62-42e2-40f0-8c78-e039054d7246" />
 <img width="1259" height="876" alt="HM Home-2" src="https://github.com/user-attachments/assets/632f91db-3ab4-4879-b97c-aa723e8db5ba" />
   </li></p>
 
-  <p><li>Filter by property type: rent or sale
+  <p><li><h3>Filter by property type: rent or sale</h3>
  <img width="1259" height="876" alt="HM Home-2" src="https://github.com/user-attachments/assets/6f7d9ff5-4744-473b-a293-4511efef990a" />
 <img width="1920" height="872" alt="HM Rent" src="https://github.com/user-attachments/assets/85b5469d-84f5-4220-9620-8fced820add9" />
 <img width="1920" height="867" alt="HM Sale" src="https://github.com/user-attachments/assets/a0ba64b2-0396-48de-ad4e-40f68b81fd9a" />
   </li></p>
 
   
-<p><li>View detailed property information with pricing, rooms, amenities, and location
+<p><li><h3>View detailed property information with pricing, rooms, amenities, and location</h3>
 <img width="959" height="872" alt="HM House Info-1" src="https://github.com/user-attachments/assets/be2d8fbd-407d-4fe6-a833-ba5a3935ebac" />
 <img width="959" height="873" alt="HM House Info-2" src="https://github.com/user-attachments/assets/ea9213d4-11a8-4951-8c70-85282aad4297" />
 </li></p>
 
 
-<p><li>Sign in or sign up using email/password or Google authentication
+<p><li><h3>Sign in or sign up using email/password or Google authentication</h3>
 <img width="1920" height="869" alt="HM Sign In" src="https://github.com/user-attachments/assets/92b3f08d-a51c-48c1-8911-a918a6e4b740" />
 <img width="1920" height="872" alt="HM Sign up" src="https://github.com/user-attachments/assets/fc00396f-4c59-4359-8d71-968748888e5f" />
 </li></p>
 
-<p><li>Create, edit, and delete listings from the user profile
+<p><li><h3>Create, edit, and delete listings from the user profile</h3>
 <img width="1920" height="866" alt="HM Logged In" src="https://github.com/user-attachments/assets/e5801fdf-0a26-4cdb-b727-be62645f856d" />
 </li></p>
 
 
-<p><li>Contact landlords directly from the property details page
+<p><li><h3>Contact landlords directly from the property details page</h3>
 <img width="958" height="871" alt="HM Contact-1" src="https://github.com/user-attachments/assets/564bdf37-3bcd-4b2b-9680-d463d1adb1a2" />
 <img width="1338" height="866" alt="HM Contact-2" src="https://github.com/user-attachments/assets/a825ebe8-f11d-41f0-8f73-5ee8e9d91233" />
 <img width="1334" height="866" alt="HM Contact-3" src="https://github.com/user-attachments/assets/774af1ff-6be9-4665-96f1-bcdf6ed76c87" />
 </li></p>
 
 
-<p><li>View property location on a map using Leaflet
+<p><li><h3>View property location on a map using Leaflet</h3>
 <img width="958" height="871" alt="HM Location" src="https://github.com/user-attachments/assets/975b85c1-779b-4a14-801a-6bfa7ed6a8d7" />
 </li></p>
 
 
-<p><li>Responsive UI built for desktop and mobile experiences
+<p><li><h3>Responsive UI built for desktop and mobile experiences</h3>
 <img width="628" height="867" alt="HM Responsive" src="https://github.com/user-attachments/assets/28ef4abd-f2ba-4308-a335-51856631396a" />
 </li></p>
 </ul>
 
 <h2>Technologies Used</h2>
 <ul>
-  <ul><b>Frontend & Routing</b>
-  <li>React.js (Core UI library)</li>
-  <li>React Router DOM (Client-side routing and navigation)</li>
-  </ul>
+  <li><b>Frontend & Routing</b></li>
+    <ul>
+      <li>React.js (Core UI library)</li>
+      <li>React Router DOM (Client-side routing and navigation)</li>
+    </ul>
 
-  <ul><b>Backend, Database & Cloud Services</b>
-  <li>Firebase Authentication (User management and auth)</li>
-  <li>Firestore Database (NoSQL cloud database)</li>
-  <li>Firebase Storage & AWS S3 (Cloud file and media storage)</li>
-  <li>AWS Lambda / API Gateway (Serverless backend logic for secure presigned upload URLs)</li>
-  </ul>
+  <li>Backend, Database & Cloud Services</b></li>
+    <ul>
+      <li>Firebase Authentication (User management and auth)</li>
+      <li>Firestore Database (NoSQL cloud database)</li>
+      <li>Firebase Storage & AWS S3 (Cloud file and media storage)</li>
+      <li>AWS Lambda / API Gateway (Serverless backend logic for secure presigned upload URLs)</li>
+    </ul>
 
+  <li>UI Components & Integrations</b></li>
+    <ul>
+      <li>React Leaflet (Interactive mapping and geolocation)</li>
+      <li>Swiper (Touch-enabled image carousels and sliders)</li>
+    </ul>
+ </ul>   
   
-  <ul><b>UI Components & Integrations</b>
-  <li>React Leaflet (Interactive mapping and geolocation)</li>
-  <li>Swiper (Touch-enabled image carousels and sliders)</li>
-  </ul>
-</ul>
-
+  
 ## AWS and S3 Integration
 
 This project includes an AWS-based image upload flow for property photos in addition to Firebase storage support.
